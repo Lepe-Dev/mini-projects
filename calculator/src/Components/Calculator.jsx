@@ -2,11 +2,14 @@ import { useState } from 'react';
 import './calculator.css';
 
 const Calculator = () => {
-    const [ display, setDisplay ] = useState('')
+    const [display, setDisplay] = useState('');
+    const handleInputChange = (event) => {
+        setDisplay(event.target.value);
+    }
     const appendToDisplay = (value) => {
         setDisplay(display + value);
+        console.log(display + value);
     }
-
     const clearDisplay = () => {
         setDisplay('');
     }
@@ -15,11 +18,12 @@ const Calculator = () => {
         try {
             const result = eval(display);
             setDisplay(result.toString());
+            console.log(result)
         } catch (err) {
             setDisplay('Syntax error');
-        };
+        }
     }
-    
+
     const deleteOneInput = () => {
         if (display.length > 1) {
             setDisplay((prevDisplay) => prevDisplay.slice(0, -1))
@@ -29,7 +33,7 @@ const Calculator = () => {
     return (
         <div className='calculator'>
             <h1 className='title'>Calculator</h1>
-            <input type='text' value={display} placeholder='0' className='result' />
+            <input type='text' key={display} defaultValue={display} placeholder='0' className='result' onChange={handleInputChange} />
             <br />
             <div className="buttons-container">
                 <button onClick={() => appendToDisplay('7')}>7</button>
@@ -49,7 +53,7 @@ const Calculator = () => {
                 <button onClick={() => appendToDisplay('/')}>÷</button>
                 <button onClick={clearDisplay}>AC</button>
             </div>
-                <button onClick={calculateResult} className='btn-result'>=</button>
+            <button onClick={calculateResult} className='btn-result'>=</button>
         </div>
     );
 };
