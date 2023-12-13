@@ -1,0 +1,23 @@
+.calculator {
+    padding: 1rem;
+    padding-top: 0;
+    border: 1px solid black;
+    background-color: darkcyan;
+}
+.buttons-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.3rem;
+}
+.buttons-container button {
+    border: 1px solid black;
+}
+.title {
+    font-size: 1.5rem;
+}
+.result {
+    text-align: right;
+    background-color: white;
+    padding: 1rem;
+    border: 1px solid black;
+}
