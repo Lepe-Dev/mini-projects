@@ -22,7 +22,10 @@ const Calculator = () => {
     
     const deleteOneInput = () => {
         if (display.length > 1) {
-            setDisplay((prevDisplay) => prevDisplay.slice(0, -1))
+            return setDisplay((prevDisplay) => prevDisplay.slice(0, -1))
+        }
+        if (display != 0 && display.length == 1) {
+            setDisplay('')
         }
     }
 
