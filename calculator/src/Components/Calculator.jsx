@@ -1,40 +1,55 @@
 import { useState } from 'react';
-import './calculator.css'
+import './calculator.css';
 
 const Calculator = () => {
-    const [ result, setResult ] = useState(0)
-    let text = ''
-    const displaySimbols = (simbol) => {
-        text += simbol
+    const [ display, setDisplay ] = useState('')
+    const appendToDisplay = (value) => {
+        setDisplay(display + value);
     }
 
-    const numOne = () => {
-        setResult(result + 1)
+    const clearDisplay = () => {
+        setDisplay('');
+    }
+
+    const calculateResult = () => {
+        try {
+            const result = eval(display);
+            setDisplay(result.toString());
+        } catch (err) {
+            setDisplay('Syntax error');
+        };
+    }
+    
+    const deleteOneInput = () => {
+        if (display.length > 1) {
+            setDisplay((prevDisplay) => prevDisplay.slice(0, -1))
+        }
     }
 
     return (
         <div className='calculator'>
             <h1 className='title'>Calculator</h1>
-            <h2 className='result'>{text}</h2>
+            <input type='text' value={display} placeholder='0' className='result' />
             <br />
             <div className="buttons-container">
-                <button onClick={displaySimbols('1')}>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>+</button>
-                <button>4</button>
-                <button>5</button>
-                <button>6</button>
-                <button>-</button>
-                <button>7</button>
-                <button>8</button>
-                <button>9</button>
-                <button>*</button>
-                <button>0</button>
-                <button>/</button>
-                <button>=</button>
-                <button>AC</button>
+                <button onClick={() => appendToDisplay('7')}>7</button>
+                <button onClick={() => appendToDisplay('8')}>8</button>
+                <button onClick={() => appendToDisplay('9')}>9</button>
+                <button onClick={() => deleteOneInput()}>«</button>
+                <button onClick={() => appendToDisplay('4')}>4</button>
+                <button onClick={() => appendToDisplay('5')}>5</button>
+                <button onClick={() => appendToDisplay('6')}>6</button>
+                <button onClick={() => appendToDisplay('-')}>-</button>
+                <button onClick={() => appendToDisplay('1')}>1</button>
+                <button onClick={() => appendToDisplay('2')}>2</button>
+                <button onClick={() => appendToDisplay('3')}>3</button>
+                <button onClick={() => appendToDisplay('+')}>+</button>
+                <button onClick={() => appendToDisplay('0')}>0</button>
+                <button onClick={() => appendToDisplay('*')}>x</button>
+                <button onClick={() => appendToDisplay('/')}>÷</button>
+                <button onClick={clearDisplay}>AC</button>
             </div>
+                <button onClick={calculateResult} className='btn-result'>=</button>
         </div>
     );
 };
